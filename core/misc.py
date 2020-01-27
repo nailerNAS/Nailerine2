@@ -16,7 +16,7 @@ loop = get_event_loop()
 bot = Bot(TOKEN, loop)
 dp = Dispatcher(bot, loop)
 plugins: Dict[str, List[str]] = {}
-clients: Dict[str, TelegramClient] = {k: TelegramClient(k, *v, loop=loop) for (k, v) in CLIENTS}
+clients: Dict[str, TelegramClient] = {k: TelegramClient(k, *v, loop=loop) for (k, v) in CLIENTS.items()}
 
 
 def load_package(package: str):
@@ -37,13 +37,19 @@ def load_package(package: str):
 
 
 async def run():
+    log.info('loading plugins')
+    load_package('plugins')
+
+    log.info('connecting clients')
     for client in clients.values():
         await client.start()
-        await dp.skip_updates()
-        try:
-            await dp.start_polling(reset_webhook=True)
-        except KeyboardInterrupt:
-            await dp.stop_polling()
-            for client in clients.values():
-                await client.disconnect()
-                await dp.wait_closed()
+
+    log.info('starting polling')
+    await dp.skip_updates()
+    try:
+        await dp.start_polling(reset_webhook=True)
+    except KeyboardInterrupt:
+        await dp.stop_polling()
+        for client in clients.values():
+            await client.disconnect()
+            await dp.wait_closed()
