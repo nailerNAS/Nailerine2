@@ -16,6 +16,9 @@ async def list_plugins(event: Message):
 async def list_plugin_commands(event: Message):
     plugin = event.pattern_match.group('plugin')
     if plugin in plugins:
-        await event.edit(f'**{plugin} commands:\n\n**' + '\n'.join(plugins[plugin]))
+        if plugins[plugin]:
+            await event.edit(f'Commands for **{plugin}**:\n\n' + '\n'.join(plugins[plugin]))
+        else:
+            await event.edit(f'**{plugin}** has no commands')
     else:
-        await event.edit(f"Can't find command list for plugin **{plugin}**")
+        await event.edit(f"Can't find plugin **{plugin}**")
