@@ -1,0 +1,5 @@
+TOKEN = 'abc123:aabbcc112233'
+CHANNEL = 't.me/nailerine
+CLIENTS = {'client1': (123, 'abc123'),
+           'client2': (123, 'abc123'),
+           'client3': (123, 'abc123')}
