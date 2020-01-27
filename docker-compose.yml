@@ -1,0 +1,10 @@
+version: '3'
+services:
+  nailerine:
+    image: nailer/nailerine2
+    build: .
+    container_name: nailerine
+    hostname: nailerine
+    volumes:
+      - ./data:/src/app/data
+    restart: always
