@@ -1,0 +1,12 @@
+[Unit]
+Description=Nailerine userbot
+After=network.target
+
+[Service]
+User=user
+WorkingDirectory=/home/nailerine/
+ExecStart=/usr/bin/python /home/nailerine/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
