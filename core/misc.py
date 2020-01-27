@@ -15,7 +15,8 @@ loop = get_event_loop()
 bot = Bot(TOKEN, loop)
 dp = Dispatcher(bot, loop)
 plugins: Dict[str, List[str]] = {}
-clients: Dict[str, TelegramClient] = {k: TelegramClient(k, *v, loop=loop) for (k, v) in CLIENTS.items()}
+clients: Dict[str, TelegramClient] = {k: TelegramClient(f'./data/{k}.session', *v, loop=loop) for (k, v) in
+                                      CLIENTS.items()}
 
 
 def load_package(package: str):
