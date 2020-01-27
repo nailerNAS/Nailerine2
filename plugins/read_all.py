@@ -1,4 +1,4 @@
-from asyncio import sleep, wait
+import asyncio
 
 from telethon import TelegramClient
 from telethon.events import register, NewMessage
@@ -17,7 +17,7 @@ async def read_all(event: Message):
             coro = client.send_read_acknowledge(dialog.input_entity, max_id=dialog.message.id)
             coros.append(coro)
 
-    await wait(coros)
+    await asyncio.wait(coros)
     await event.edit(f'Nailerine has marked {len(coros)} chats as read')
-    await sleep(5)
+    await asyncio.sleep(5)
     await event.delete()
