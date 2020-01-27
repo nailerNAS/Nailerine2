@@ -209,3 +209,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Nailerine config
+config.py
