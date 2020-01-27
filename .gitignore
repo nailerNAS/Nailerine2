@@ -212,3 +212,7 @@ dmypy.json
 
 # Nailerine config
 config.py
+
+# Telethon sessions
+*.session
+*.session-journal
