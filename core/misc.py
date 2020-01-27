@@ -1,6 +1,7 @@
 from asyncio import get_event_loop
 from importlib import import_module
 from inspect import isawaitable
+from logging import getLogger
 from pkgutil import walk_packages
 from typing import List, Dict
 
@@ -8,6 +9,8 @@ from aiogram import Bot, Dispatcher
 from telethon import TelegramClient
 
 from config import CLIENTS, TOKEN
+
+log = getLogger(__name__)
 
 loop = get_event_loop()
 bot = Bot(TOKEN, loop)
@@ -27,6 +30,7 @@ def load_package(package: str):
             if isawaitable(item) and not item_name.startswith('_'):
                 for client in clients.values():
                     client.add_event_handler(item)
+        log.info('loaded plugin %s', plugin)
 
         if is_pkg:
             load_package(full_name)
