@@ -1,6 +1,5 @@
-from asyncio import get_event_loop
+from asyncio import get_event_loop, iscoroutinefunction
 from importlib import import_module
-from inspect import isawaitable
 from logging import getLogger
 from pkgutil import walk_packages
 from typing import List, Dict
@@ -27,7 +26,8 @@ def load_package(package: str):
         plugins[name] = plugin.commands if hasattr(plugin, 'commands') else None
         for item_name in dir(plugin):
             item = getattr(plugin, item_name)
-            if isawaitable(item) and not item_name.startswith('_'):
+            if iscoroutinefunction(item) and not item_name.startswith('_'):
+                log.info('adding handler of %s to clients', name)
                 for client in clients.values():
                     client.add_event_handler(item)
         log.info('loaded plugin %s', plugin)
