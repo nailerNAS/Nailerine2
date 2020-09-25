@@ -216,3 +216,6 @@ config.py
 # Telethon sessions
 *.session
 *.session-journal
+
+# Pipfile lock
+Pipfile.lock
