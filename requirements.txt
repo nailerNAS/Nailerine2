@@ -10,6 +10,6 @@ multidict==4.7.4
 pyaes==1.6.1
 pyasn1==0.4.8
 pytz==2019.3
-rsa==4.0
+rsa==4.1
 Telethon==1.10.10
 yarl==1.4.2
